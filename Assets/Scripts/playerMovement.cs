@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerMovement : MonoBehaviour
 {
@@ -12,13 +14,40 @@ public class playerMovement : MonoBehaviour
 
     public float speed = 6f;
 
+    Image healthValue;
+    public float playerHealth = 30;
+    float maxHealth;
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
     Vector3 moveVector;
 
+    bool allowedToDamage = true;
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "damage area" && allowedToDamage == true)
+        {
+            playerHealth -= 10;
+            allowedToDamage = false;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "damage area" && allowedToDamage == false)
+        {
+            allowedToDamage = true;
+        }
+    }
+
+    private void Start()
+    {
+        healthValue = gameObject.transform.Find("Health/Health Value").GetComponent<Image>();
+        playerHealth = 30;
+        maxHealth = playerHealth;
+}
 
     void Update()
     {
@@ -53,6 +82,12 @@ public class playerMovement : MonoBehaviour
         //Apply our move Vector , remeber to multiply by Time.delta
         controller.Move(moveVector * Time.deltaTime);
 
+        health();
+    }
 
+    void health()
+    {
+        healthValue.fillAmount = playerHealth / maxHealth;
+        Debug.Log(playerHealth);
     }
 }

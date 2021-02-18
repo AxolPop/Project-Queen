@@ -24,6 +24,9 @@ public class troop : MonoBehaviour
     private NavMeshAgent ai;
     private float timer;
 
+    //health
+    Canvas canvas;
+
     enemyWander getEnemyScript;
 
     public static float troopMaxTotal;
@@ -101,6 +104,7 @@ public class troop : MonoBehaviour
         ai = GetComponent<NavMeshAgent>();
         timer = wanderTimer;
         allowAttack = true;
+        canvas = GetComponentInChildren<Canvas>();
     }
 
     // Update is called once per frame
@@ -110,6 +114,7 @@ public class troop : MonoBehaviour
         switch (state)
         {
             case State.wandering:
+                canvas.enabled = false;
                 ai.speed = 3.8f;
                 ai.acceleration = 8;
                 timer += Time.deltaTime;
@@ -123,6 +128,7 @@ public class troop : MonoBehaviour
                 break;
 
             case State.atKing:
+                canvas.enabled = true;
                 ai.speed = 25;
                 ai.acceleration = 9999;
                 troopNumber = GameObject.Find(troopID.ToString());
@@ -324,6 +330,11 @@ public class troop : MonoBehaviour
 
         //Apply our move Vector , remeber to multiply by Time.delta
         cc.Move(moveVector * Time.deltaTime);
+
+    }
+
+    void recieveDamage(bool getDamage)
+    {
 
     }
 }

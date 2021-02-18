@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\system.cs" />
     <Compile Include="Assets\Scripts\troop.cs" />
     <Compile Include="Assets\Scripts\troopSize.cs" />
+    <Compile Include="Assets\animation.cs" />
     <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\Shaders\NewUnlitShader.shader" />
     <None Include="Assets\Shaders\URP_NiloCatExtension_ScreenSpaceDecal_Unlit.shader" />

@@ -15,6 +15,8 @@ public class enemyWander : MonoBehaviour
     public float health = 100;
     float maxHealth;
     Image healthValue;
+
+    public bool beingAttacked;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class enemyWander : MonoBehaviour
         healthValue = gameObject.transform.Find("Health/Health Value").GetComponent<Image>();
 
         maxHealth = health;
+
+        beingAttacked = false;
     }
 
     // Update is called once per frame
@@ -43,6 +47,8 @@ public class enemyWander : MonoBehaviour
         if (health < maxHealth)
         {
             ai.speed = 0;
+
+            beingAttacked = true;
         }
 
         if (health < 1)
